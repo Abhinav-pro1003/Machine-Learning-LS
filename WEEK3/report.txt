@@ -1,0 +1,18 @@
+Sentiment Analysis using BERT Model
+
+In this assignment, I built a sentiment analysis pipeline with help of Hugging Face libraries. The goal was to classify IMDb movie reviews as either positive or negative using a pre-trained BERT model called bert-base-uncased.
+The pipeline starts by loading the IMDb dataset from Hugging Face’s datasets library. After that, I tokenized the reviews using BERT tokenizer which handles things like truncation and padding automatically. Then I used Hugging Face’s Trainer to fine-tune the model. The Trainer also helps in evaluating the model with metrics like accuracy and F1-score.
+Because of limited system memory, I didn't train on the whole dataset. I used only 2,000 samples for training and 1,000 for testing, which was enough to test if the pipeline works. Also I used a small batch size to make sure it runs without crashing.
+
+The trained model and tokenizer was saved in a folder called sentiment-bert. Finally, I added a quick test to see how the model performs on a custom text input like “This movie was fantastic!”. It predicted correctly.
+Some of the problems I faced were memory usage and long training time, but I tried to fix that by using fewer samples and making the script simple.
+
+I also tried changing the input text to something negative like “I hated this movie, it was boring” and the model was able to detect the sentiment correctly too, which was cool to see. It shows that even with limited training, the model learned to classify general opinions quite well.
+One thing I found interesting was how the tokenizer works behind the scenes. It breaks the text into smaller tokens and turns them into numbers that the model can understand. At first this was a bit confusing, but after reading the docs and trying it out, it made sense.
+
+If I had more time or a better system (maybe with a GPU), I would have trained it on the full dataset to get even better results. I also think trying out other models like distilBERT could be fun since it's smaller and probably faster.
+Overall, this was a good learning experience for me. It gave me a better idea of how sentiment analysis works and how to use Hugging Face tools effectively. The Trainer API made a lot of things easier, especially for someone like me who is still learning.
+
+Another small issue I faced was with the tokenizer. Sometimes, very long reviews would get truncated, and I wasn’t sure if that would affect the model’s performance. I learned that BERT has a max token limit (512), so it's something to keep in mind. Also, when I first tried to train, I forgot to use the data collator, and it gave me a shape mismatch error. Took me a while to figure that out.
+There were also warnings about missing labels or incorrect format at the beginning, which I fixed by carefully checking the dataset and using the map function properly. Overall, debugging small things took time, but I feel I learned more because of that.
+If I had a GPU, the training would have been much faster. On CPU it took quite some time even for a small dataset. So hardware was definitely a limitation in this assignment.
